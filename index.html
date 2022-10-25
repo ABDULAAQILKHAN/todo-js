@@ -1,0 +1,114 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta http-equiv="X-UA-Compatible" content="IE=edge">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>todo list</title>
+    <link rel="stylesheet" href="todo.css">
+    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.1.1/css/all.min.css">
+</head>
+<body>
+    <div class="body_container">
+    <div class="head">
+        <h1>WELCOME TO TODO MEMORY</h1>
+    </div>
+    <div class="container" id="container">
+        <div class="child">
+           please enter your task below.
+        </div>
+    </div>
+    <div class="btncon">
+    <input class="input" id="input"><button id="save_btn" class="save_btn" onclick="save()"><i class="fa-solid fa-bookmark"></i></button>
+    
+
+
+
+    </div>
+    <div class="table_container">
+        <table class="table" id="table">
+
+        </table>
+    </div>
+    </div>
+    <script>
+        show();
+ inputTask = document.getElementById('input');
+ saveBtn = document.getElementsByClassName('save_btn');
+
+function save(){
+    inputTaskVal = inputTask.value;
+    if (inputTaskVal == '') {
+        alert('blank task cannot be inserted');
+    }else{
+
+    
+    let storedTask = localStorage.getItem('localtask');
+    if(storedTask == null){
+        taskObj = [];
+    }
+    else{
+        taskObj = JSON.parse(storedTask);
+    }
+    taskObj.push(inputTaskVal);
+    console.log(taskObj);
+    localStorage.setItem('localtask',JSON.stringify(taskObj));
+}
+    show();
+}
+function show(){
+    let storedTask = localStorage.getItem('localtask');
+    if(storedTask == null){
+        taskObj = [];
+    }
+    else{
+        taskObj = JSON.parse(storedTask);
+    }
+    let html = '';
+    let addtasklist = document.getElementById('table');
+    taskObj.forEach((item, index)=>{
+        html += ` <tr>
+            <th>${index+1}</th>
+            <td>${item}</td>
+            <td><button onclick="edit(${index})" class="editbtn"><i class="fa-solid fa-pen-to-square"></i></button></td>
+            <td><button onclick="del(${index})" class="deletebtn"><i class="fa-solid fa-trash-can"></i></button></td>
+        </tr>`;
+    });
+    addtasklist.innerHTML = html;
+}
+
+function edit(index){
+    let saveBtn = document.getElementById('save_btn');
+    savedIndex = index;
+  
+    let storedTask = localStorage.getItem('localtask');
+    let taskObj = JSON.parse(storedTask);
+    inputTask.value = taskObj[index];
+    
+    saveBtn.removeAttribute("onclick");
+    saveBtn.setAttribute("onclick","saveEdit()")
+   
+
+}
+function saveEdit(){
+    console.log(savedIndex);
+    inputTask = document.getElementById('input');
+    taskObj[savedIndex] = inputTask.value;
+    localStorage.setItem('localtask',JSON.stringify(taskObj));
+
+  show();
+  let saveBtn = document.getElementById('save_btn');
+    saveBtn.removeAttribute("onclick");
+    saveBtn.setAttribute("onclick","save()");
+}
+function del(index){
+    let storedTask = localStorage.getItem('localtask');
+    let taskObj = JSON.parse(storedTask);
+
+    taskObj.splice(index, 1);
+    localStorage.setItem('localtask',JSON.stringify(taskObj));
+    show();
+}
+    </script>
+</body>
+</html>
