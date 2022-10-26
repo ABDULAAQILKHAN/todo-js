@@ -15,23 +15,21 @@ body{
     display: flex inline;
     flex-direction: column;
 }
-@media only screen and (max-width: 425px){
+@media only screen and (max-width: 600px){
     .body_container{
         
-        width: 100;
+        width: 95%;
     }
 }
 .head{
     text-align: center;
     width: auto;
     margin: auto;
-    border: 2px solid black;
 }
 .container{
     text-align: center;
     width: auto;
     margin: auto;
-    border: 2px solid rgba(0, 0, 0, 0.233);
     padding:15px;
 }
 .child{
@@ -40,7 +38,7 @@ body{
     margin-top: -25px;
     text-align: center;
     width: auto;
-    border: 2px solid black;
+    border-radius: 20px;
 }
 .new_child{
     padding:15px;
@@ -55,7 +53,6 @@ body{
     text-align: center;
     width: auto;
     margin: auto;
-    border: 2px solid black;
 }
 .input{
     font-size:20px;
@@ -141,28 +138,26 @@ input:focus{
     
 }
 .table_container{
-    width: 100%;
+    width: 95%;
     overflow-x: auto;
-    
+    margin-bottom: 15px;
 }
 table{
     border-collapse:collapse;
-    border: 1px solid antiquewhite;
     margin-left: auto;
     margin-right: auto;
-    border-radius: 15px;
+
    
-}
-tr{
- 
 }
 th,td{
-   min-width: 100px;
-    padding: 5px;
     border: 1px solid;
     text-align: center;
-}
-i{
     
-   
 }
+th:first-child{
+    width: 20px;
+}
+th:nth-child(2){
+    width: auto;
+}
+
